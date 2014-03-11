@@ -160,6 +160,7 @@ bool comanMotionControl::alloc(int nj)
     ImplementControlLimits2(this),
     ImplementTorqueControl(this),
     ImplementPositionDirect(this),
+    ImplementInteractionMode(this),
      _initialPidConfigFound(false),
     _mutex(1)
 {
@@ -276,6 +277,7 @@ bool comanMotionControl::open(yarp::os::Searchable &config)
     ImplementControlLimits2::initialize(_njoints, _axisMap, _angleToEncoder, _zeros);
     ImplementTorqueControl::initialize(_njoints, _axisMap, _angleToEncoder, _zeros, _newtonsToSensor);
     ImplementPositionDirect::initialize(_njoints, _axisMap, _angleToEncoder, _zeros);
+    ImplementInteractionMode::initialize(_njoints, _axisMap);
 
     _comanHandler = comanDevicesHandler::instance();
 
@@ -581,6 +583,7 @@ bool comanMotionControl::close()
     ImplementControlLimits2::uninitialize();
     ImplementTorqueControl::uninitialize();
     ImplementPositionDirect::uninitialize();
+    ImplementInteractionMode::uninitialize();
     return _comanHandler->deInstance();
 }
 
@@ -2661,4 +2664,39 @@ bool comanMotionControl::setPositionsRaw(const double *refs)
     return (!_boards_ctrl->set_position_velocity(_ref_positions, _ref_speeds, _njoints) );
 }
 
+// IInteractionMode
+bool comanMotionControl::getInteractionModeRaw(int axis, yarp::dev::InteractionModeEnum* mode)
+{
+    std::cout << "getInteractionModeRaw single joint NOT YET IMPLEMENTED" << std::endl;
+    return false;
+}
 
+bool comanMotionControl::getInteractionModesRaw(int n_joints, int *joints, yarp::dev::InteractionModeEnum* modes)
+{
+    std::cout << "getInteractionModeRaw group NOT YET IMPLEMENTED" << std::endl;
+    return false;
+}
+
+bool comanMotionControl::getInteractionModesRaw(yarp::dev::InteractionModeEnum* modes)
+{
+    std::cout << "getInteractionModeRaw all NOT YET IMPLEMENTED" << std::endl;
+    return false;
+}
+
+bool comanMotionControl::setInteractionModeRaw(int axis, yarp::dev::InteractionModeEnum mode)
+{
+    std::cout << "setInteractionModeRaw single NOT YET IMPLEMENTED" << std::endl;
+    return false;
+}
+
+bool comanMotionControl::setInteractionModesRaw(int n_joints, int *joints, yarp::dev::InteractionModeEnum* modes)
+{
+    std::cout << "setInteractionModeRaw group NOT YET IMPLEMENTED" << std::endl;
+    return false;
+}
+
+bool comanMotionControl::setInteractionModesRaw(yarp::dev::InteractionModeEnum* modes)
+{
+    std::cout << "setInteractionModeRaw all NOT YET IMPLEMENTED" << std::endl;
+    return false;
+}

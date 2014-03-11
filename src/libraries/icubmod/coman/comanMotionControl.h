@@ -121,7 +121,9 @@ class yarp::dev::comanMotionControl:  public DeviceDriver,
     public ImplementTorqueControl,
     public IDebugInterfaceRaw,
     public IPositionDirectRaw,
-    public ImplementPositionDirect
+    public ImplementPositionDirect,
+    public IInteractionModeRaw,
+    public ImplementInteractionMode
 {
 private:
 
@@ -391,10 +393,17 @@ public:
     bool enableTorquePidRaw(int j);
     bool setTorqueOffsetRaw(int j, double v);
 
-
     bool setPositionRaw(int j, double ref);
     bool setPositionsRaw(const int n_joint, const int *joints, double *refs);
     bool setPositionsRaw(const double *refs);
+
+    // InteractionMode interface
+    bool getInteractionModeRaw(int axis, yarp::dev::InteractionModeEnum* mode);
+    bool getInteractionModesRaw(int n_joints, int *joints, yarp::dev::InteractionModeEnum* modes);
+    bool getInteractionModesRaw(yarp::dev::InteractionModeEnum* modes);
+    bool setInteractionModeRaw(int axis, yarp::dev::InteractionModeEnum mode);
+    bool setInteractionModesRaw(int n_joints, int *joints, yarp::dev::InteractionModeEnum* modes);
+    bool setInteractionModesRaw(yarp::dev::InteractionModeEnum* modes);
 };
 
 #endif // include guard
